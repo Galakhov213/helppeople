@@ -7,131 +7,119 @@
 
 <style>
 :root {
-  --bg: #0f0f0f;
-  --card: #1a1a1a;
-  --accent: #7f1d1d;
-  --text: #e5e5e5;
+  --bg:#0a0a0a;
+  --card:#141414;
+  --accent:#7f1d1d;
+  --text:#e5e5e5;
 }
 
 body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* TOP TEXT */
-.topbar {
-  position: fixed;
-  top: 10px;
-  right: 15px;
-  font-size: 12px;
-  opacity: 0.6;
+/* TOP */
+.topbar{
+  position:fixed;
+  top:10px;
+  right:15px;
+  font-size:12px;
+  opacity:.5;
 }
 
 /* HEADER */
-header {
-  text-align: center;
-  padding: 60px 20px 20px;
-  animation: fadeIn 1s ease;
+header{
+  text-align:center;
+  padding:60px 20px;
 }
 
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(-20px);}
-  to {opacity:1; transform: translateY(0);}
+header h1{
+  font-size:42px;
+  margin:0;
 }
 
-/* CONTAINER */
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 10px;
+.warning{
+  color:#ef4444;
+  margin-top:10px;
+  font-weight:bold;
+}
+
+/* GRID */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+  padding:20px;
 }
 
 /* CARD */
-.card {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  transition: 0.3s;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: show 0.6s forwards;
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.6);
+  transition:.3s;
+  opacity:0;
+  transform:translateY(30px);
+  animation:show .6s forwards;
 }
 
-.card:nth-child(1){animation-delay:0.1s;}
-.card:nth-child(2){animation-delay:0.2s;}
-.card:nth-child(3){animation-delay:0.3s;}
-.card:nth-child(4){animation-delay:0.4s;}
-.card:nth-child(5){animation-delay:0.5s;}
-.card:nth-child(6){animation-delay:0.6s;}
-
-@keyframes show {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes show{
+  to{opacity:1; transform:translateY(0);}
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.01);
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
 }
 
-/* TITLE */
-.card h2 {
-  color: #ef4444;
+.card h2{
+  color:#ef4444;
 }
 
 /* BUTTON */
-button {
-  margin-top: 10px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: none;
-  background: var(--accent);
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
+button{
+  margin-top:10px;
+  padding:10px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  color:white;
+  cursor:pointer;
 }
 
 /* DETAILS */
-.details {
-  max-height: 0;
-  overflow: hidden;
-  transition: 0.4s ease;
+.details{
+  max-height:0;
+  overflow:hidden;
+  transition:.4s;
 }
 
-.details.open {
-  max-height: 400px;
-  margin-top: 10px;
+.details.open{
+  max-height:500px;
+  margin-top:10px;
 }
 
-/* TELEGRAM BUTTON */
-.telegram {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+/* TELEGRAM */
+.telegram{
+  position:fixed;
+  bottom:20px;
+  right:20px;
 }
 
-.telegram a {
-  display: block;
-  padding: 15px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
+.telegram a{
+  padding:16px;
+  border-radius:50%;
+  background:var(--accent);
+  color:white;
+  font-size:20px;
+  text-decoration:none;
 }
 
 /* MOBILE */
 @media(max-width:600px){
-  header h1 {font-size:28px;}
+  header h1{font-size:30px;}
 }
 </style>
 
@@ -150,71 +138,98 @@ function toggleDetails(id){
 </div>
 
 <header>
-<h1>🛡️ Анти-Мошенник</h1>
-<p>Разбор схем мошенничества и защита</p>
+<h1>🛡️ АНТИ-МОШЕННИК</h1>
+<div class="warning">
+НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!
+</div>
 </header>
 
 <div class="container">
 
+<!-- 1 -->
 <div class="card">
 <h2>📞 Звонок "из банка"</h2>
-<p>Сообщают о списании денег и требуют код.</p>
+<p>Говорят, что с карты списывают деньги.</p>
 <button onclick="toggleDetails('d1')">Подробнее</button>
 <div id="d1" class="details">
-<p>Мошенники звонят с подменного номера, представляются сотрудниками банка и создают панику. Говорят, что деньги срочно списываются. Давят на скорость принятия решения. Их цель — заставить тебя назвать код из SMS или данные карты. Настоящие банки никогда не спрашивают такие данные по телефону.</p>
+<p>Мошенники звонят с подменных номеров, представляются сотрудниками банка и создают сильное давление. Они требуют срочно назвать код или данные карты. Их цель — украсть деньги через доступ к счету. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
+<!-- 2 -->
 <div class="card">
 <h2>🏛️ "Госуслуги"</h2>
 <p>Пугают взломом аккаунта.</p>
 <button onclick="toggleDetails('d2')">Подробнее</button>
 <div id="d2" class="details">
-<p>Приходит сообщение или звонок якобы от Госуслуг с информацией о взломе аккаунта. Тебя просят срочно подтвердить личность и назвать код. Это обман. Мошенники пытаются получить доступ к аккаунту. Всегда заходи на сайт только самостоятельно через браузер.</p>
+<p>Приходит сообщение о взломе аккаунта и просьба срочно подтвердить данные. Мошенники пытаются получить доступ к личной информации. Настоящие сервисы не требуют кодов через звонки. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
+<!-- 3 -->
 <div class="card">
-<h2>🚨 "Вы сотрудничали с врагом"</h2>
-<p>Запугивание уголовным делом.</p>
+<h2>🚨 Угроза уголовным делом</h2>
+<p>Запугивают и требуют действия.</p>
 <button onclick="toggleDetails('d3')">Подробнее</button>
 <div id="d3" class="details">
-<p>Мошенники представляются сотрудниками спецслужб и обвиняют тебя в незаконной деятельности. Давят страхом, угрожают уголовным делом и требуют выполнить указания. Это психологическое давление. Никогда не выполняй их требования. Настоящие органы не работают так через звонки.</p>
+<p>Представляются спецслужбами и обвиняют в преступлении. Давят страхом и требуют переводы или действия. Это чистая манипуляция. Настоящие органы не действуют так. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
+<!-- 4 -->
 <div class="card">
-<h2>👨‍👩‍👧 "Родственник в беде"</h2>
-<p>Пишут от имени знакомого.</p>
+<h2>👨‍👩‍👧 Родственник просит деньги</h2>
+<p>Пишут срочно перевести средства.</p>
 <button onclick="toggleDetails('d4')">Подробнее</button>
 <div id="d4" class="details">
-<p>Мошенники взламывают аккаунт знакомого или создают похожий профиль. Пишут, что срочно нужна помощь и деньги. Давят на эмоции и не дают времени подумать. Всегда перепроверяй через звонок. Не переводи деньги, пока не убедишься лично.</p>
+<p>Взламывают аккаунты и пишут от имени близких. Давят эмоциями и срочностью. Всегда перепроверяй через звонок. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
+<!-- 5 -->
 <div class="card">
-<h2>💻 "Лёгкий заработок"</h2>
+<h2>💻 Лёгкий заработок</h2>
 <p>Обещают быстрые деньги.</p>
 <button onclick="toggleDetails('d5')">Подробнее</button>
 <div id="d5" class="details">
-<p>Предлагают работу с высоким доходом без опыта. Вначале всё выглядит просто, но потом просят вложить деньги или оплатить доступ. Это схема развода. Настоящая работа не требует вложений. Если просят деньги — это почти всегда мошенники.</p>
+<p>Просят вложить деньги для “работы”. Это развод. Реальная работа не требует вложений. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
+<!-- 6 -->
 <div class="card">
-<h2>📦 "Посылка или доставка"</h2>
-<p>Сообщают о якобы посылке.</p>
+<h2>📦 Посылка</h2>
+<p>Ссылка для отслеживания.</p>
 <button onclick="toggleDetails('d6')">Подробнее</button>
 <div id="d6" class="details">
-<p>Приходит сообщение о доставке с ссылкой для отслеживания. Сайт выглядит настоящим, но это подделка. Вводя данные, ты передаёшь их мошенникам. Никогда не переходи по подозрительным ссылкам. Проверяй доставку только через официальные сайты.</p>
+<p>Фейковые сайты крадут данные. Не переходи по ссылкам. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="card">
+<h2>🎁 Вы выиграли приз</h2>
+<p>Обещают деньги или айфон.</p>
+<button onclick="toggleDetails('d7')">Подробнее</button>
+<div id="d7" class="details">
+<p>Просят оплатить “комиссию”. Это обман. Бесплатного не бывает. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="card">
+<h2>💳 Служба безопасности</h2>
+<p>Просят перевести деньги на “безопасный счет”.</p>
+<button onclick="toggleDetails('d8')">Подробнее</button>
+<div id="d8" class="details">
+<p>Это одна из самых опасных схем. Деньги уходят мошенникам. НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</p>
 </div>
 </div>
 
 </div>
 
-<!-- TELEGRAM BUTTON -->
 <div class="telegram">
-<a href="https://t.me/aantimoshennik_bot" target="_blank">💬</a>
+<a href="https://t.me/your_bot" target="_blank">💬</a>
 </div>
 
 </body>
