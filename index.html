@@ -1,155 +1,241 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Анти-Мошенник</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анти-Мошенник</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      margin: 0;
-      background: #f0fdf4;
-      color: #064e3b;
-    }
+<style>
+:root {
+  --green: #22c55e;
+  --dark: #064e3b;
+  --bg: #ecfdf5;
+}
 
-    header {
-      background: #22c55e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  color: var(--dark);
+}
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
 
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin: 15px 0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
+header h1 {
+  margin: 0;
+  font-size: 38px;
+}
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
+header p {
+  opacity: 0.7;
+}
 
-    h2 {
-      color: #16a34a;
-    }
+/* SEARCH */
+.search {
+  max-width: 500px;
+  margin: 20px auto;
+  display: flex;
+  gap: 10px;
+}
 
-    button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      background: #22c55e;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.search input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+}
 
-    button:hover {
-      background: #16a34a;
-    }
+/* FILTERS */
+.filters {
+  text-align: center;
+  margin: 10px;
+}
 
-    .details {
-      display: none;
-      margin-top: 10px;
-      background: #ecfdf5;
-      padding: 10px;
-      border-radius: 8px;
-    }
-  </style>
+.filters button {
+  margin: 5px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  background: white;
+  cursor: pointer;
+}
 
-  <script>
-    function toggleDetails(id) {
-      let el = document.getElementById(id);
-      el.style.display = (el.style.display === "block") ? "none" : "block";
+/* CARD */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 10px;
+}
+
+.card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 15px 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h2 {
+  margin: 0;
+  color: var(--green);
+}
+
+button.more {
+  margin-top: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--green);
+  color: white;
+  cursor: pointer;
+}
+
+/* DETAILS */
+.details {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.4s ease;
+}
+
+.details.open {
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+/* HELP BLOCK */
+.help {
+  background: white;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 16px;
+  max-width: 900px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  opacity: 0.6;
+}
+</style>
+
+<script>
+function toggleDetails(id) {
+  document.getElementById(id).classList.toggle("open");
+}
+
+function searchCards() {
+  let input = document.getElementById("search").value.toLowerCase();
+  let cards = document.getElementsByClassName("card");
+
+  for (let i = 0; i < cards.length; i++) {
+    let text = cards[i].innerText.toLowerCase();
+    cards[i].style.display = text.includes(input) ? "block" : "none";
+  }
+}
+
+function filter(type) {
+  let cards = document.getElementsByClassName("card");
+
+  for (let c of cards) {
+    if (type === "all" || c.dataset.type === type) {
+      c.style.display = "block";
+    } else {
+      c.style.display = "none";
     }
-  </script>
+  }
+}
+</script>
 
 </head>
 
 <body>
 
 <header>
-  🛡️ Как не попасться на мошенников
+  <h1>🛡️ Анти-Мошенник</h1>
+  <p>Пойми схему — и тебя не обманут</p>
 </header>
+
+<div class="search">
+  <input id="search" placeholder="Поиск (банк, приз...)" onkeyup="searchCards()">
+</div>
+
+<div class="filters">
+  <button onclick="filter('all')">Все</button>
+  <button onclick="filter('calls')">Звонки</button>
+  <button onclick="filter('internet')">Интернет</button>
+  <button onclick="filter('pressure')">Давление</button>
+</div>
 
 <div class="container">
 
-  <!-- БАНК -->
-  <div class="card">
-    <h2>📞 Звонок "из банка"</h2>
-    <p>Говорят, что с вашей карты списывают деньги и нужно срочно назвать код.</p>
-    <button onclick="toggleDetails('d1')">Подробнее</button>
+<div class="card" data-type="calls">
+<h2>📞 Звонок "из банка"</h2>
+<p>Говорят о списании денег и требуют код.</p>
+<button class="more" onclick="toggleDetails('d1')">Подробнее</button>
+<div id="d1" class="details">
+<p><b>Суть:</b> паника и срочность.</p>
+<p><b>Ошибка:</b> назвать код.</p>
+<p><b>Правильно:</b> звонить в банк самому.</p>
+</div>
+</div>
 
-    <div id="d1" class="details">
-      <p><b>Как происходит:</b> мошенники пугают и давят, заставляя действовать быстро.</p>
-      <p><b>Никогда не делай:</b> не называй код из SMS и данные карты.</p>
-      <p><b>Что делать:</b> положить трубку и позвонить в банк самому.</p>
-    </div>
-  </div>
+<div class="card" data-type="internet">
+<h2>🎁 Вы выиграли приз</h2>
+<p>Обещают деньги или айфон.</p>
+<button class="more" onclick="toggleDetails('d2')">Подробнее</button>
+<div id="d2" class="details">
+<p><b>Суть:</b> комиссия за "получение".</p>
+<p><b>Ошибка:</b> отправить деньги.</p>
+<p><b>Правильно:</b> игнорировать.</p>
+</div>
+</div>
 
-  <!-- ПРИЗ -->
-  <div class="card">
-    <h2>🎁 Вы выиграли приз</h2>
-    <p>Сообщают, что вы выиграли деньги или айфон.</p>
-    <button onclick="toggleDetails('d2')">Подробнее</button>
+<div class="card" data-type="internet">
+<h2>🏛️ "Госуслуги"</h2>
+<p>Пугают взломом аккаунта.</p>
+<button class="more" onclick="toggleDetails('d3')">Подробнее</button>
+<div id="d3" class="details">
+<p><b>Суть:</b> срочность.</p>
+<p><b>Ошибка:</b> дать код.</p>
+<p><b>Правильно:</b> заходить только самому.</p>
+</div>
+</div>
 
-    <div id="d2" class="details">
-      <p><b>Как происходит:</b> просят оплатить "доставку" или "комиссию".</p>
-      <p><b>Никогда не делай:</b> не отправляй деньги незнакомцам.</p>
-      <p><b>Что делать:</b> игнорировать такие сообщения.</p>
-    </div>
-  </div>
-
-  <!-- САЙТ -->
-  <div class="card">
-    <h2>🔗 Поддельный сайт</h2>
-    <p>Сайт выглядит как настоящий, но адрес отличается.</p>
-    <button onclick="toggleDetails('d3')">Подробнее</button>
-
-    <div id="d3" class="details">
-      <p><b>Как происходит:</b> создают копии популярных сайтов.</p>
-      <p><b>Никогда не делай:</b> не вводи данные карты на подозрительных сайтах.</p>
-      <p><b>Что делать:</b> проверяй адрес сайта (URL).</p>
-    </div>
-  </div>
-
-  <!-- ГОСУСЛУГИ -->
-  <div class="card">
-    <h2>🏛️ "Госуслуги"</h2>
-    <p>Пишут или звонят якобы от Госуслуг и просят код.</p>
-    <button onclick="toggleDetails('d4')">Подробнее</button>
-
-    <div id="d4" class="details">
-      <p><b>Как происходит:</b> сообщают о взломе аккаунта и просят срочно подтвердить данные.</p>
-      <p><b>Никогда не делай:</b> не сообщай коды и пароль.</p>
-      <p><b>Что делать:</b> зайти в аккаунт только через официальный сайт.</p>
-    </div>
-  </div>
-
-  <!-- СПЕЦСЛУЖБЫ -->
-  <div class="card">
-    <h2>🚨 "Вы сотрудничали с врагом"</h2>
-    <p>Говорят, что вы якобы связаны с другой страной и требуют действия.</p>
-    <button onclick="toggleDetails('d5')">Подробнее</button>
-
-    <div id="d5" class="details">
-      <p><b>Как происходит:</b> запугивают уголовным делом и давят психологически.</p>
-      <p><b>Никогда не делай:</b> не выполняй требования (деньги, вред имуществу и т.д.).</p>
-      <p><b>Что делать:</b> сразу прекратить разговор и обратиться в полицию.</p>
-    </div>
-  </div>
+<div class="card" data-type="pressure">
+<h2>🚨 "Вы сотрудничали с врагом"</h2>
+<p>Запугивают уголовным делом.</p>
+<button class="more" onclick="toggleDetails('d4')">Подробнее</button>
+<div id="d4" class="details">
+<p><b>Суть:</b> страх.</p>
+<p><b>Ошибка:</b> выполнять указания.</p>
+<p><b>Правильно:</b> игнор и полиция.</p>
+</div>
+</div>
 
 </div>
+
+<div class="help">
+<h2>❗ Если ты уже попался</h2>
+<p>1. Немедленно заблокируй карту</p>
+<p>2. Обратись в банк</p>
+<p>3. Напиши заявление в полицию</p>
+</div>
+
+<footer>
+Сайт создан для проекта | GitHub Pages
+</footer>
 
 </body>
 </html>
