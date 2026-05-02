@@ -3,63 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>БРОНЯ: Анти-Мошенник</title>
+    <title>БРОНЯ: Анти-Мошенник для всей семьи</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
         :root {
-            --bg: #050505;
-            --card: #111111;
-            --accent: #ff0000;
-            --accent-muted: #7f1d1d;
+            --bg: #030000;
+            --card-bg: rgba(20, 5, 5, 0.6);
+            --accent: #ff1100;
+            --accent-glow: rgba(255, 17, 0, 0.5);
             --text: #ffffff;
-            --text-dim: #a3a3a3;
+            --text-dim: #cccccc;
         }
 
-        * { box-sizing: border-box; }
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Montserrat', sans-serif; 
+        }
 
         body {
-            margin: 0;
-            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Анимированный фон */
-        .bg-glow {
+        /* ИНДИКАТОР ПРОКРУТКИ */
+        .scroll-progress {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a0505 0%, #050505 100%);
-            z-index: -1;
-        }
-
-        /* TOP BAR */
-        .topbar {
+            top: 0; left: 0; height: 4px;
             background: var(--accent);
-            color: white;
-            padding: 5px 20px;
-            font-size: 13px;
-            text-align: center;
-            font-weight: bold;
-            letter-spacing: 1px;
+            z-index: 1000;
+            width: 0%;
+            box-shadow: 0 0 10px var(--accent);
         }
 
-        /* MARQUEE (Бегущая строка) */
+        /* АНИМИРОВАННЫЙ ФОН */
+        .bg-particles {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #1a0202 0%, #000000 100%);
+            z-index: -2;
+        }
+
+        /* БЕГУЩАЯ СТРОКА */
         .marquee {
             background: #000;
             color: var(--accent);
             white-space: nowrap;
             overflow: hidden;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 2px solid var(--accent);
             font-weight: 900;
             text-transform: uppercase;
+            font-size: 18px;
+            box-shadow: 0 5px 20px var(--accent-glow);
+            position: relative;
+            z-index: 10;
         }
 
         .marquee span {
             display: inline-block;
             padding-left: 100%;
-            animation: marquee 20s linear infinite;
+            animation: marquee 25s linear infinite;
         }
 
         @keyframes marquee {
@@ -67,177 +75,248 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        /* HEADER */
+        /* ШАПКА */
         header {
             text-align: center;
-            padding: 80px 20px;
-            background: linear-gradient(to bottom, rgba(127, 29, 29, 0.2), transparent);
+            padding: 60px 20px 40px;
+            position: relative;
         }
 
         header h1 {
-            font-size: clamp(2rem, 8vw, 5rem);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            line-height: 1;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px var(--accent-glow);
         }
 
         header h1 span { color: var(--accent); }
 
-        .warning-box {
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .mega-warning {
             display: inline-block;
-            border: 3px solid var(--accent);
-            padding: 15px 30px;
+            border: 4px solid var(--accent);
+            padding: 20px 40px;
             margin-top: 30px;
-            background: rgba(255, 0, 0, 0.1);
-            animation: pulse 1.5s infinite;
+            background: rgba(255, 0, 0, 0.15);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 900;
+            border-radius: 15px;
+            animation: pulse-border 1.5s infinite;
+            text-transform: uppercase;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(255, 17, 0, 0.8); }
+            70% { box-shadow: 0 0 0 25px rgba(255, 17, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 17, 0, 0); }
         }
 
-        /* GRID */
+        /* УНИВЕРСАЛЬНЫЕ ПРАВИЛА (ДЛЯ ВСЕХ ВОЗРАСТОВ) */
+        .universal-rules {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #2a0808, #0a0000);
+            border-radius: 20px;
+            border-left: 10px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .universal-rules h2 {
+            color: var(--accent);
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .rule-item {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #333;
+        }
+
+        .rule-item b { color: #ff5555; font-size: 20px;}
+
+        /* СЕТКА КАРТОЧЕК */
         .container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
-            padding: 40px;
+            padding: 20px 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* CARD */
+        /* КАРТОЧКА (Glassmorphism) */
         .card {
-            background: var(--card);
-            border: 1px solid #222;
-            border-radius: 24px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             padding: 30px;
             position: relative;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            transition: all 0.4s ease;
         }
 
         .card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-10px) scale(1.02);
             border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.15);
+            box-shadow: 0 15px 35px var(--accent-glow);
         }
 
-        .card-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-
-        .card h2 {
-            margin: 0 0 15px 0;
-            font-size: 24px;
-            color: var(--accent);
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 16px;
-            flex-grow: 1;
-        }
-
-        /* BUTTON */
-        .btn-more {
-            background: transparent;
-            border: 1px solid var(--accent-muted);
-            color: white;
-            padding: 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            margin-top: 20px;
-        }
-
-        .btn-more:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* DETAILS */
-        .details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            font-size: 14px;
-            background: #1a1a1a;
-            border-radius: 10px;
-        }
-
-        .details.open {
-            max-height: 1000px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 1px solid #333;
-        }
-
-        .strict-rule {
-            color: #ff4444;
-            font-weight: 900;
-            text-transform: uppercase;
-            display: block;
-            margin-top: 10px;
-            border-top: 1px solid #333;
-            padding-top: 10px;
-        }
-
-        /* СЕКЦИЯ ЗОЛОТЫЕ ПРАВИЛА */
-        .rules-section {
-            background: #111;
-            margin: 40px;
-            padding: 40px;
-            border-radius: 30px;
-            border-left: 10px solid var(--accent);
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-dim);
-        }
-
-        /* TELEGRAM FAB */
-        .tg-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #229ED9;
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 0, 0, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            transition: 0.3s;
-            z-index: 100;
+            font-size: 35px;
+            margin-bottom: 20px;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .tg-fab:hover { transform: scale(1.1) rotate(10deg); }
+        .card h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .card p.desc {
+            color: var(--text-dim);
+            font-size: 16px;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        /* КНОПКА ПОДРОБНЕЕ */
+        .btn-more {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            width: 100%;
+        }
+
+        .btn-more:hover {
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* СКРЫТЫЙ ТЕКСТ */
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, padding 0.6s ease;
+            font-size: 15px;
+            color: #eee;
+            background: rgba(0,0,0,0.8);
+            border-radius: 10px;
+        }
+
+        .details.open {
+            max-height: 800px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--accent);
+        }
+
+        .strict-rule {
+            display: block;
+            margin-top: 15px;
+            color: var(--accent);
+            font-weight: 900;
+            text-align: center;
+            background: #110000;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px dashed var(--accent);
+        }
+
+        /* СЕКЦИЯ АНОНИМНОСТЬ */
+        .anonymity-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #111;
+            border-radius: 20px;
+            text-align: center;
+            border-top: 5px solid #00ffcc;
+            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.1);
+        }
+
+        .anonymity-section h2 {
+            color: #00ffcc;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .anonymity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .anon-card {
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .anon-card h4 { color: #fff; margin-bottom: 10px; }
+        .anon-card p { color: #aaa; font-size: 14px;}
+
+        /* ФУТЕР */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #050000;
+            border-top: 1px solid #333;
+        }
+
+        .footer-warning {
+            font-size: 24px;
+            color: var(--accent);
+            font-weight: 900;
+            margin-top: 20px;
+            animation: pulse-border 2s infinite;
+            display: inline-block;
+            padding: 10px 20px;
+        }
 
         @media(max-width: 768px) {
-            .container { padding: 15px; grid-template-columns: 1fr; }
-            header { padding: 40px 15px; }
+            .container { padding: 10px 20px; }
+            .universal-rules { margin: 20px; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-<div class="bg-glow"></div>
+<!-- Полоса прокрутки сверху -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
-<div class="topbar">
-    АВТОР: ГАЛАХОВ ДАНИИЛ ИВАНОВИЧ | ГРУППА КС-115 | 2024
-</div>
+<div class="bg-particles"></div>
 
 <div class="marquee">
     <span>
@@ -246,156 +325,203 @@
 </div>
 
 <header>
-    <h1>🛡️ АНТИ<span>-МОШЕННИК</span></h1>
-    <p>Твоя цифровая крепость в мире манипуляций</p>
-    <div class="warning-box">
+    <h1>БРОНЯ: <span>АНТИ-СКАМ</span></h1>
+    <p class="subtitle">Сайт-шпаргалка для всех: от школьника до пенсионера. Как не дать обмануть себя в интернете и по телефону.</p>
+    <div class="mega-warning">
         НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!
     </div>
 </header>
 
+<section class="universal-rules">
+    <h2>🌟 ГЛАВНЫЕ ПРАВИЛА БЕЗОПАСНОСТИ</h2>
+    <div class="rule-item">
+        <b>1. Самое важное правило мира:</b><br>
+        НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!! Ни из СМС, ни логины, ни 3 цифры с обратной стороны карты. Настоящий банк это не спросит.
+    </div>
+    <div class="rule-item">
+        <b>2. Положите трубку:</b><br>
+        Если по телефону заговорили о деньгах, полиции, кредитах или счетах — просто сбросьте вызов. Если переживаете, сами наберите номер банка, указанный на вашей карте.
+    </div>
+    <div class="rule-item">
+        <b>3. Бесплатный сыр только в мышеловке:</b><br>
+        Не верьте в легкие заработки, неожиданные выигрыши и супер-акции. Если вам предлагают много денег за простые действия — вас обманывают.
+    </div>
+    <div class="rule-item">
+        <b>4. Двойная защита (Двухфакторная аутентификация):</b><br>
+        Включите ее в Госуслугах, ВКонтакте, Одноклассниках и WhatsApp. Это когда для входа нужен не только пароль, но и СМС. Если мошенник узнает пароль, без вашего телефона он не войдет.
+    </div>
+</section>
+
 <div class="container">
-    <!-- Схема 1 -->
+    <!-- 1 -->
     <div class="card">
-        <div class="card-icon">📞</div>
-        <h2>Ложный Центробанк</h2>
-        <p>Вам звонит "сотрудник регулятора" и сообщает о подозрительной активности на всех ваших счетах сразу.</p>
-        <button class="btn-more" onclick="toggle(this)">АНАТОМИЯ ОБМАНА</button>
+        <div class="icon-circle">📞</div>
+        <h3>Звонок из "Банка" или "Полиции"</h3>
+        <p class="desc">Говорят: "С вашей карты прямо сейчас списывают деньги" или "На вас пытаются взять кредит".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Они присылают в мессенджеры фото "удостоверений". Требуют перевести деньги на "единый безопасный счет". Запомните: таких счетов не существует! <br>
+            Вас запугивают, чтобы вы запаниковали. Вас попросят перевести все деньги на "безопасный счет" или продиктовать код из СМС для "отмены операции". Запомните: безопасных счетов не бывает!<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 2 -->
+    <!-- 2 -->
     <div class="card">
-        <div class="card-icon">🏗️</div>
-        <h2>Госуслуги / Личный кабинет</h2>
-        <p>Сообщение: "Ваш аккаунт взломан, зафиксирован вход из другого города".</p>
-        <button class="btn-more" onclick="toggle(this)">КАК ОНИ ВОРУЮТ</button>
+        <div class="icon-circle">🔞</div>
+        <h3>Шантаж 18+ и Знакомства</h3>
+        <p class="desc">Вы познакомились в интернете, и собеседник просит прислать интимное фото или видео.</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Вас просят продиктовать код из СМС, чтобы "защитить" профиль. Как только они получат код, они оформят на вас микрозаймы. <br>
+            Как только вы отправите фото, "милая девушка" или "парень" исчезнет. Вместо них напишет мошенник и потребует деньги, иначе разошлет эти фото всем вашим друзьям и родственникам. Не делайте таких фото для незнакомцев!<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 3 -->
+    <!-- 3 -->
     <div class="card">
-        <div class="card-icon">🖥️</div>
-        <h2>Удаленный доступ</h2>
-        <p>Просят установить приложение "AnyDesk" или "RustDesk" для "диагностики телефона".</p>
-        <button class="btn-more" onclick="toggle(this)">ОПАСНОСТЬ</button>
+        <div class="icon-circle">📥</div>
+        <h3>Установка "нужных" файлов</h3>
+        <p class="desc">Вас просят скачать программу на телефон или компьютер для "защиты", "диагностики" или "просмотра документа".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Это программы удаленного управления. Мошенник увидит ваш экран, зайдет в банковское приложение и сам переведет все деньги. <br>
+            Это вирусы или программы удаленного доступа. Если вы их скачаете, мошенник сможет водить мышкой по вашему экрану, читать СМС и сам зайдет в ваш банк, чтобы перевести деньги. Не качайте то, что присылают чужие люди!<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 4 -->
+    <!-- 4 -->
     <div class="card">
-        <div class="card-icon">💎</div>
-        <h2>Крипто-инвестиции</h2>
-        <p>Реклама обещает доход 300% в день на арбитраже или новых токенах.</p>
-        <button class="btn-more" onclick="toggle(this)">СУТЬ РАЗВОДА</button>
+        <div class="icon-circle">🦅</div>
+        <h3>"Госуслуги" и взлом</h3>
+        <p class="desc">Приходит сообщение: "Ваш аккаунт взломан! Продиктуйте код, чтобы восстановить доступ".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Вы видите красивый график роста прибыли в личном кабинете, но при попытке вывода с вас потребуют "налог" или "комиссию", а потом заблокируют. <br>
+            Госуслуги никогда не звонят сами! Если вы скажете код, мошенники зайдут в ваш профиль и наберут на ваше имя микрокредитов под огромные проценты.<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 5 -->
+    <!-- 5 -->
     <div class="card">
-        <div class="card-icon">💬</div>
-        <h2>Взлом близкого</h2>
-        <p>Голосовое сообщение от друга: "Срочно займи 5000 до вечера, беда!".</p>
-        <button class="btn-more" onclick="toggle(this)">НОВЫЕ ТЕХНОЛОГИИ</button>
+        <div class="icon-circle">💸</div>
+        <h3>"Перевел по ошибке, верни!"</h3>
+        <p class="desc">Вам на карту приходят деньги, а потом звонит человек: "Ой, я ошибся номером, переведите обратно".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Сейчас мошенники используют нейросети, чтобы подделывать голос. Даже если голос похож — перезвоните другу по обычному телефону! <br>
+            Эти деньги могут быть украдены у другого человека. Если вы переведете их обратно (особенно на другой номер карты), вы станете соучастником преступления. Скажите: "Обращайтесь в свой банк для отмены перевода".<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 6 -->
+    <!-- 6 -->
     <div class="card">
-        <div class="card-icon">📦</div>
-        <h2>Оплата доставки</h2>
-        <p>Вы продаете вещь на Авито, и "покупатель" кидает ссылку на оплату.</p>
-        <button class="btn-more" onclick="toggle(this)">ФИШИНГ</button>
+        <div class="icon-circle">👨‍👩‍👦</div>
+        <h3>"Мам, я попал в беду"</h3>
+        <p class="desc">Пишет сын/внук/друг в WhatsApp или ВКонтакте: "Срочно переведи 10 000 рублей, потом все объясню!".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Ссылка ведет на поддельный сайт, где нужно ввести данные карты и код из СМС. Результат — обнуление баланса. <br>
+            Страницу вашего близкого взломали. Сейчас мошенники даже умеют подделывать голоса через нейросети! Обязательно позвоните человеку по обычному телефону и спросите, он ли это писал.<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 7 -->
+    <!-- 7 -->
     <div class="card">
-        <div class="card-icon">🩺</div>
-        <h2>Запись в поликлинику</h2>
-        <p>Звонят и предлагают "пройти диспансеризацию" или "обновить полис ОМС".</p>
-        <button class="btn-more" onclick="toggle(this)">МЕД-МОШЕННИКИ</button>
+        <div class="icon-circle">🎁</div>
+        <h3>Лотереи и призы</h3>
+        <p class="desc">"Поздравляем! Вы выиграли новый телефон (или миллион рублей)".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Для записи просят подтвердить номер через код. На самом деле это код для смены пароля в банке или на Госуслугах. <br>
+            Чтобы забрать "бесплатный" приз, вас попросят оплатить небольшую "комиссию за доставку" или "налог". Вы вводите данные карты, и с нее списывают все деньги. Приза не существует.<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 
-    <!-- Схема 8 -->
+    <!-- 8 -->
     <div class="card">
-        <div class="card-icon">⚖️</div>
-        <h2>Сотрудник ФСБ / МВД</h2>
-        <p>"Ваши данные переданы иностранным агентам, вы под следствием!"</p>
-        <button class="btn-more" onclick="toggle(this)">ДАВЛЕНИЕ</button>
+        <div class="icon-circle">🏥</div>
+        <h3>Медицинский обман</h3>
+        <p class="desc">Звонят из "поликлиники": "Ваша медицинская карточка устарела, назовите код из СМС для продления".</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
         <div class="details">
-            Запрещают класть трубку и рассказывать родным. Требуют "сотрудничать" и переводить деньги. Настоящие органы вызывают повесткой! <br>
+            Медицинский полис бессрочный! Код, который они просят — это пароль для входа в ваш банк или Госуслуги.<br>
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
 </div>
 
-<section class="rules-section">
-    <h2 style="color: var(--accent); font-size: 32px;">ЗОЛОТЫЕ ПРАВИЛА ВЫЖИВАНИЯ</h2>
-    <ul style="font-size: 20px; list-style: none; padding: 0;">
-        <li style="margin-bottom: 20px;">🚫 <b>НИКОГДА</b> не называйте CVV (3 цифры сзади) и коды из СМС.</li>
-        <li style="margin-bottom: 20px;">📞 <b>КЛАДИТЕ ТРУБКУ</b>, если звонок кажется подозрительным. Сами наберите номер банка.</li>
-        <li style="margin-bottom: 20px;">🛡️ <b>ДВУХФАКТОРКА</b> — включите её везде (почта, соцсети, банки).</li>
-        <li style="margin-bottom: 20px;">📵 <b>НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</b></li>
-    </ul>
+<!-- СЕКЦИЯ АНОНИМНОСТЬ -->
+<section class="anonymity-section">
+    <h2>🕵️‍♂️ ПОЧЕМУ ВАЖНА АНОНИМНОСТЬ В СЕТИ?</h2>
+    <p style="color: #ccc; font-size: 18px;">Интернет помнит всё. Мошенники собирают информацию о вас по кусочкам, чтобы втереться в доверие или обокрасть квартиру.</p>
+    
+    <div class="anonymity-grid">
+        <div class="anon-card">
+            <h4>📸 Фотографии билетов и ключей</h4>
+            <p>Никогда не выкладывайте фото билетов на самолет/поезд со штрихкодами, а также фото ключей от новой квартиры. По ним можно узнать ваши данные или сделать дубликат ключа.</p>
+        </div>
+        <div class="anon-card">
+            <h4>🏖️ Отпуск онлайн</h4>
+            <p>Выкладывая фото с курорта в реальном времени, вы кричите на весь интернет: "Моя квартира сейчас пустая, приходите и берите что хотите!". Выкладывайте фото после возвращения.</p>
+        </div>
+        <div class="anon-card">
+            <h4>📍 Адреса и дети</h4>
+            <p>Не пишите в открытом доступе точный адрес школы вашего ребенка, его ФИО и ваш домашний адрес. Это приманка для преступников.</p>
+        </div>
+        <div class="anon-card">
+            <h4>🗑️ Опросы и тесты</h4>
+            <p>"Узнай, кто ты из сериала". Такие тесты часто просят доступ к вашей странице. Так они крадут список ваших друзей, чтобы потом писать им от вашего имени.</p>
+        </div>
+    </div>
 </section>
 
 <footer>
-    <p>Проект разработан в учебных целях для повышения киберграмотности населения.</p>
-    <p>Помните: Ваша безопасность в ваших руках.</p>
-    <div style="margin-top: 20px; color: var(--accent); font-weight: bold;">
+    <p>Создано для защиты вашей семьи. Покажите этот сайт своим детям, родителям, бабушкам и дедушкам.</p>
+    <div class="footer-warning">
         НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!
     </div>
 </footer>
 
-<a href="https://t.me/your_bot" class="tg-fab">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.467 8.246l-1.98 9.33c-.146.659-.535.818-1.084.508l-3.02-2.225-1.457 1.403c-.16.16-.298.298-.61.298l.215-3.06 5.57-5.029c.24-.213-.054-.333-.373-.121l-6.889 4.337-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"/></svg>
-</a>
-
 <script>
+    // Раскрытие карточек
     function toggle(btn) {
         const details = btn.nextElementSibling;
-        details.classList.toggle('open');
-        btn.innerText = details.classList.contains('open') ? 'ЗАКРЫТЬ' : 'АНАТОМИЯ ОБМАНА';
+        const isOpen = details.classList.contains('open');
+        
+        // Закрываем все остальные открытые вкладки (по желанию, можно убрать)
+        document.querySelectorAll('.details').forEach(el => el.classList.remove('open'));
+        document.querySelectorAll('.btn-more').forEach(el => el.innerText = 'Как работает обман');
+
+        if (!isOpen) {
+            details.classList.add('open');
+            btn.innerText = 'Скрыть информацию';
+        }
     }
 
-    // Появление карточек при скролле
+    // Анимация появления карточек при прокрутке
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.transform = 'translateY(0) scale(1)';
             }
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
-        card.style.transition = '0.6s ease-out';
-        observer.observe(card);
+    document.querySelectorAll('.card, .rule-item, .anon-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px) scale(0.95)';
+        el.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        observer.observe(el);
     });
+
+    // Индикатор прокрутки страницы
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("scrollProgress").style.width = scrolled + "%";
+    };
 </script>
 
 </body>
