@@ -9,29 +9,34 @@
 :root {
   --green: #22c55e;
   --dark: #064e3b;
-  --bg: #ecfdf5;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  background: linear-gradient(135deg,#dcfce7,#bbf7d0);
   color: var(--dark);
+}
+
+/* TOP BAR */
+.topbar {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 /* HEADER */
 header {
   text-align: center;
-  padding: 40px 20px 20px;
+  padding: 60px 20px 20px;
+  animation: fadeIn 1s ease;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 38px;
-}
-
-header p {
-  opacity: 0.7;
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(-20px);}
+  to {opacity:1; transform: translateY(0);}
 }
 
 /* SEARCH */
@@ -39,21 +44,18 @@ header p {
   max-width: 500px;
   margin: 20px auto;
   display: flex;
-  gap: 10px;
 }
 
 .search input {
-  flex: 1;
+  width: 100%;
   padding: 12px;
   border-radius: 999px;
   border: none;
-  outline: none;
 }
 
 /* FILTERS */
 .filters {
   text-align: center;
-  margin: 10px;
 }
 
 .filters button {
@@ -61,11 +63,10 @@ header p {
   padding: 8px 14px;
   border-radius: 999px;
   border: none;
-  background: white;
   cursor: pointer;
 }
 
-/* CARD */
+/* CARDS */
 .container {
   max-width: 900px;
   margin: auto;
@@ -73,8 +74,8 @@ header p {
 }
 
 .card {
-  background: rgba(255,255,255,0.7);
-  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(10px);
   border-radius: 16px;
   padding: 20px;
   margin: 15px 0;
@@ -86,14 +87,9 @@ header p {
   transform: translateY(-6px);
 }
 
-.card h2 {
-  margin: 0;
-  color: var(--green);
-}
-
-button.more {
+.more {
   margin-top: 10px;
-  padding: 10px 16px;
+  padding: 10px;
   border-radius: 999px;
   border: none;
   background: var(--green);
@@ -105,56 +101,72 @@ button.more {
 .details {
   max-height: 0;
   overflow: hidden;
-  transition: 0.4s ease;
+  transition: 0.4s;
 }
 
 .details.open {
-  max-height: 200px;
+  max-height: 300px;
   margin-top: 10px;
 }
 
-/* HELP BLOCK */
+/* HELP */
 .help {
   background: white;
-  margin: 30px auto;
+  margin: 30px;
   padding: 20px;
   border-radius: 16px;
-  max-width: 900px;
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  opacity: 0.6;
+/* CHAT */
+.chat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.chat-box {
+  display: none;
+  width: 260px;
+  height: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.chat-box.open {
+  display: block;
+}
+
+.chat button {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: var(--green);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  header h1 {font-size:28px;}
 }
 </style>
 
 <script>
-function toggleDetails(id) {
+function toggleDetails(id){
   document.getElementById(id).classList.toggle("open");
 }
 
-function searchCards() {
-  let input = document.getElementById("search").value.toLowerCase();
-  let cards = document.getElementsByClassName("card");
-
-  for (let i = 0; i < cards.length; i++) {
-    let text = cards[i].innerText.toLowerCase();
-    cards[i].style.display = text.includes(input) ? "block" : "none";
-  }
+function toggleChat(){
+  document.getElementById("chatBox").classList.toggle("open");
 }
 
-function filter(type) {
-  let cards = document.getElementsByClassName("card");
-
-  for (let c of cards) {
-    if (type === "all" || c.dataset.type === type) {
-      c.style.display = "block";
-    } else {
-      c.style.display = "none";
-    }
-  }
+function sendMessage(){
+  let msg = document.getElementById("msg").value;
+  alert("Сообщение отправлено: " + msg);
 }
 </script>
 
@@ -162,80 +174,99 @@ function filter(type) {
 
 <body>
 
+<div class="topbar">
+Проект создан Галаховым Даниилом Ивановичем, КС-115
+</div>
+
 <header>
-  <h1>🛡️ Анти-Мошенник</h1>
-  <p>Пойми схему — и тебя не обманут</p>
+<h1>🛡️ Анти-Мошенник</h1>
+<p>Полный гид по схемам обмана и защите</p>
 </header>
-
-<div class="search">
-  <input id="search" placeholder="Поиск (банк, приз...)" onkeyup="searchCards()">
-</div>
-
-<div class="filters">
-  <button onclick="filter('all')">Все</button>
-  <button onclick="filter('calls')">Звонки</button>
-  <button onclick="filter('internet')">Интернет</button>
-  <button onclick="filter('pressure')">Давление</button>
-</div>
 
 <div class="container">
 
-<div class="card" data-type="calls">
+<!-- БАНК -->
+<div class="card">
 <h2>📞 Звонок "из банка"</h2>
-<p>Говорят о списании денег и требуют код.</p>
+<p>Сообщают о списании средств и требуют срочно код.</p>
 <button class="more" onclick="toggleDetails('d1')">Подробнее</button>
 <div id="d1" class="details">
-<p><b>Суть:</b> паника и срочность.</p>
-<p><b>Ошибка:</b> назвать код.</p>
-<p><b>Правильно:</b> звонить в банк самому.</p>
+<p><b>Как происходит:</b> звонок с подменой номера, создают панику.</p>
+<p><b>Давление:</b> «прямо сейчас», «иначе потеряешь деньги».</p>
+<p><b>Ошибка:</b> назвать код, номер карты.</p>
+<p><b>Как правильно:</b> сбросить и позвонить в банк самому.</p>
 </div>
 </div>
 
-<div class="card" data-type="internet">
-<h2>🎁 Вы выиграли приз</h2>
-<p>Обещают деньги или айфон.</p>
+<!-- ГОСУСЛУГИ -->
+<div class="card">
+<h2>🏛️ Мошенники от "Госуслуг"</h2>
+<p>Пугают взломом аккаунта.</p>
 <button class="more" onclick="toggleDetails('d2')">Подробнее</button>
 <div id="d2" class="details">
-<p><b>Суть:</b> комиссия за "получение".</p>
-<p><b>Ошибка:</b> отправить деньги.</p>
-<p><b>Правильно:</b> игнорировать.</p>
+<p><b>Схема:</b> SMS или звонок с просьбой подтвердить данные.</p>
+<p><b>Ошибка:</b> передать код.</p>
+<p><b>Правильно:</b> заходить только самому через сайт.</p>
 </div>
 </div>
 
-<div class="card" data-type="internet">
-<h2>🏛️ "Госуслуги"</h2>
-<p>Пугают взломом аккаунта.</p>
+<!-- ВРАГ -->
+<div class="card">
+<h2>🚨 "Вы сотрудничали с врагом"</h2>
+<p>Запугивание уголовной ответственностью.</p>
 <button class="more" onclick="toggleDetails('d3')">Подробнее</button>
 <div id="d3" class="details">
-<p><b>Суть:</b> срочность.</p>
-<p><b>Ошибка:</b> дать код.</p>
-<p><b>Правильно:</b> заходить только самому.</p>
+<p><b>Суть:</b> психологическое давление.</p>
+<p><b>Ошибка:</b> выполнять требования.</p>
+<p><b>Правильно:</b> игнор + полиция.</p>
 </div>
 </div>
 
-<div class="card" data-type="pressure">
-<h2>🚨 "Вы сотрудничали с врагом"</h2>
-<p>Запугивают уголовным делом.</p>
+<!-- РОДСТВЕННИК -->
+<div class="card">
+<h2>👨‍👩‍👧 "Родственник в беде"</h2>
+<p>Пишут от имени знакомого.</p>
 <button class="more" onclick="toggleDetails('d4')">Подробнее</button>
 <div id="d4" class="details">
-<p><b>Суть:</b> страх.</p>
-<p><b>Ошибка:</b> выполнять указания.</p>
-<p><b>Правильно:</b> игнор и полиция.</p>
+<p><b>Суть:</b> срочно нужны деньги.</p>
+<p><b>Ошибка:</b> перевод без проверки.</p>
+<p><b>Правильно:</b> позвонить человеку напрямую.</p>
+</div>
+</div>
+
+<!-- РАБОТА -->
+<div class="card">
+<h2>💻 "Лёгкий заработок"</h2>
+<p>Обещают быстрые деньги.</p>
+<button class="more" onclick="toggleDetails('d5')">Подробнее</button>
+<div id="d5" class="details">
+<p><b>Суть:</b> сначала платишь ты.</p>
+<p><b>Ошибка:</b> вложить деньги.</p>
+<p><b>Правильно:</b> игнорировать.</p>
 </div>
 </div>
 
 </div>
 
 <div class="help">
-<h2>❗ Если ты уже попался</h2>
-<p>1. Немедленно заблокируй карту</p>
+<h2>❗ Если уже попался</h2>
+<p>1. Срочно заблокируй карту</p>
 <p>2. Обратись в банк</p>
 <p>3. Напиши заявление в полицию</p>
 </div>
 
-<footer>
-Сайт создан для проекта | GitHub Pages
-</footer>
+<!-- CHAT -->
+<div class="chat">
+<div id="chatBox" class="chat-box">
+<p><b>Поддержка</b></p>
+<input id="msg" placeholder="Ваш вопрос">
+<button onclick="sendMessage()">Отправить</button>
+<br><br>
+<a href="https://t.me/your_bot" target="_blank">Открыть Telegram</a>
+</div>
+
+<button onclick="toggleChat()">💬</button>
+</div>
 
 </body>
 </html>
