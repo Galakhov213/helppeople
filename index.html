@@ -7,24 +7,26 @@
 
 <style>
 :root {
-  --green: #22c55e;
-  --dark: #064e3b;
+  --bg: #0f0f0f;
+  --card: #1a1a1a;
+  --accent: #7f1d1d;
+  --text: #e5e5e5;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg,#dcfce7,#bbf7d0);
-  color: var(--dark);
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* TOP BAR */
+/* TOP TEXT */
 .topbar {
   position: fixed;
   top: 10px;
   right: 15px;
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 /* HEADER */
@@ -39,114 +41,92 @@ header {
   to {opacity:1; transform: translateY(0);}
 }
 
-/* SEARCH */
-.search {
-  max-width: 500px;
-  margin: 20px auto;
-  display: flex;
-}
-
-.search input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 999px;
-  border: none;
-}
-
-/* FILTERS */
-.filters {
-  text-align: center;
-}
-
-.filters button {
-  margin: 5px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-}
-
-/* CARDS */
+/* CONTAINER */
 .container {
   max-width: 900px;
   margin: auto;
   padding: 10px;
 }
 
+/* CARD */
 .card {
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(10px);
+  background: var(--card);
   border-radius: 16px;
   padding: 20px;
-  margin: 15px 0;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin: 20px 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   transition: 0.3s;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: show 0.6s forwards;
+}
+
+.card:nth-child(1){animation-delay:0.1s;}
+.card:nth-child(2){animation-delay:0.2s;}
+.card:nth-child(3){animation-delay:0.3s;}
+.card:nth-child(4){animation-delay:0.4s;}
+.card:nth-child(5){animation-delay:0.5s;}
+.card:nth-child(6){animation-delay:0.6s;}
+
+@keyframes show {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px) scale(1.01);
 }
 
-.more {
+/* TITLE */
+.card h2 {
+  color: #ef4444;
+}
+
+/* BUTTON */
+button {
   margin-top: 10px;
-  padding: 10px;
+  padding: 10px 16px;
   border-radius: 999px;
   border: none;
-  background: var(--green);
+  background: var(--accent);
   color: white;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 /* DETAILS */
 .details {
   max-height: 0;
   overflow: hidden;
-  transition: 0.4s;
+  transition: 0.4s ease;
 }
 
 .details.open {
-  max-height: 300px;
+  max-height: 400px;
   margin-top: 10px;
 }
 
-/* HELP */
-.help {
-  background: white;
-  margin: 30px;
-  padding: 20px;
-  border-radius: 16px;
-}
-
-/* CHAT */
-.chat {
+/* TELEGRAM BUTTON */
+.telegram {
   position: fixed;
   bottom: 20px;
   right: 20px;
 }
 
-.chat-box {
-  display: none;
-  width: 260px;
-  height: 320px;
-  background: white;
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.chat-box.open {
+.telegram a {
   display: block;
-}
-
-.chat button {
+  padding: 15px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  border: none;
-  background: var(--green);
+  background: var(--accent);
   color: white;
+  text-decoration: none;
   font-size: 20px;
-  cursor: pointer;
 }
 
 /* MOBILE */
@@ -158,15 +138,6 @@ header {
 <script>
 function toggleDetails(id){
   document.getElementById(id).classList.toggle("open");
-}
-
-function toggleChat(){
-  document.getElementById("chatBox").classList.toggle("open");
-}
-
-function sendMessage(){
-  let msg = document.getElementById("msg").value;
-  alert("Сообщение отправлено: " + msg);
 }
 </script>
 
@@ -180,92 +151,70 @@ function sendMessage(){
 
 <header>
 <h1>🛡️ Анти-Мошенник</h1>
-<p>Полный гид по схемам обмана и защите</p>
+<p>Разбор схем мошенничества и защита</p>
 </header>
 
 <div class="container">
 
-<!-- БАНК -->
 <div class="card">
 <h2>📞 Звонок "из банка"</h2>
-<p>Сообщают о списании средств и требуют срочно код.</p>
-<button class="more" onclick="toggleDetails('d1')">Подробнее</button>
+<p>Сообщают о списании денег и требуют код.</p>
+<button onclick="toggleDetails('d1')">Подробнее</button>
 <div id="d1" class="details">
-<p><b>Как происходит:</b> звонок с подменой номера, создают панику.</p>
-<p><b>Давление:</b> «прямо сейчас», «иначе потеряешь деньги».</p>
-<p><b>Ошибка:</b> назвать код, номер карты.</p>
-<p><b>Как правильно:</b> сбросить и позвонить в банк самому.</p>
+<p>Мошенники звонят с подменного номера, представляются сотрудниками банка и создают панику. Говорят, что деньги срочно списываются. Давят на скорость принятия решения. Их цель — заставить тебя назвать код из SMS или данные карты. Настоящие банки никогда не спрашивают такие данные по телефону.</p>
 </div>
 </div>
 
-<!-- ГОСУСЛУГИ -->
 <div class="card">
-<h2>🏛️ Мошенники от "Госуслуг"</h2>
+<h2>🏛️ "Госуслуги"</h2>
 <p>Пугают взломом аккаунта.</p>
-<button class="more" onclick="toggleDetails('d2')">Подробнее</button>
+<button onclick="toggleDetails('d2')">Подробнее</button>
 <div id="d2" class="details">
-<p><b>Схема:</b> SMS или звонок с просьбой подтвердить данные.</p>
-<p><b>Ошибка:</b> передать код.</p>
-<p><b>Правильно:</b> заходить только самому через сайт.</p>
+<p>Приходит сообщение или звонок якобы от Госуслуг с информацией о взломе аккаунта. Тебя просят срочно подтвердить личность и назвать код. Это обман. Мошенники пытаются получить доступ к аккаунту. Всегда заходи на сайт только самостоятельно через браузер.</p>
 </div>
 </div>
 
-<!-- ВРАГ -->
 <div class="card">
 <h2>🚨 "Вы сотрудничали с врагом"</h2>
-<p>Запугивание уголовной ответственностью.</p>
-<button class="more" onclick="toggleDetails('d3')">Подробнее</button>
+<p>Запугивание уголовным делом.</p>
+<button onclick="toggleDetails('d3')">Подробнее</button>
 <div id="d3" class="details">
-<p><b>Суть:</b> психологическое давление.</p>
-<p><b>Ошибка:</b> выполнять требования.</p>
-<p><b>Правильно:</b> игнор + полиция.</p>
+<p>Мошенники представляются сотрудниками спецслужб и обвиняют тебя в незаконной деятельности. Давят страхом, угрожают уголовным делом и требуют выполнить указания. Это психологическое давление. Никогда не выполняй их требования. Настоящие органы не работают так через звонки.</p>
 </div>
 </div>
 
-<!-- РОДСТВЕННИК -->
 <div class="card">
 <h2>👨‍👩‍👧 "Родственник в беде"</h2>
 <p>Пишут от имени знакомого.</p>
-<button class="more" onclick="toggleDetails('d4')">Подробнее</button>
+<button onclick="toggleDetails('d4')">Подробнее</button>
 <div id="d4" class="details">
-<p><b>Суть:</b> срочно нужны деньги.</p>
-<p><b>Ошибка:</b> перевод без проверки.</p>
-<p><b>Правильно:</b> позвонить человеку напрямую.</p>
+<p>Мошенники взламывают аккаунт знакомого или создают похожий профиль. Пишут, что срочно нужна помощь и деньги. Давят на эмоции и не дают времени подумать. Всегда перепроверяй через звонок. Не переводи деньги, пока не убедишься лично.</p>
 </div>
 </div>
 
-<!-- РАБОТА -->
 <div class="card">
 <h2>💻 "Лёгкий заработок"</h2>
 <p>Обещают быстрые деньги.</p>
-<button class="more" onclick="toggleDetails('d5')">Подробнее</button>
+<button onclick="toggleDetails('d5')">Подробнее</button>
 <div id="d5" class="details">
-<p><b>Суть:</b> сначала платишь ты.</p>
-<p><b>Ошибка:</b> вложить деньги.</p>
-<p><b>Правильно:</b> игнорировать.</p>
+<p>Предлагают работу с высоким доходом без опыта. Вначале всё выглядит просто, но потом просят вложить деньги или оплатить доступ. Это схема развода. Настоящая работа не требует вложений. Если просят деньги — это почти всегда мошенники.</p>
+</div>
+</div>
+
+<div class="card">
+<h2>📦 "Посылка или доставка"</h2>
+<p>Сообщают о якобы посылке.</p>
+<button onclick="toggleDetails('d6')">Подробнее</button>
+<div id="d6" class="details">
+<p>Приходит сообщение о доставке с ссылкой для отслеживания. Сайт выглядит настоящим, но это подделка. Вводя данные, ты передаёшь их мошенникам. Никогда не переходи по подозрительным ссылкам. Проверяй доставку только через официальные сайты.</p>
 </div>
 </div>
 
 </div>
 
-<div class="help">
-<h2>❗ Если уже попался</h2>
-<p>1. Срочно заблокируй карту</p>
-<p>2. Обратись в банк</p>
-<p>3. Напиши заявление в полицию</p>
-</div>
-
-<!-- CHAT -->
-<div class="chat">
-<div id="chatBox" class="chat-box">
-<p><b>Поддержка</b></p>
-<input id="msg" placeholder="Ваш вопрос">
-<button onclick="sendMessage()">Отправить</button>
-<br><br>
-<a href="https://t.me/your_bot" target="_blank">Открыть Telegram</a>
-</div>
-
-<button onclick="toggleChat()">💬</button>
+<!-- TELEGRAM BUTTON -->
+<div class="telegram">
+<a href="https://t.me/aantimoshennik_bot" target="_blank">💬</a>
 </div>
 
 </body>
