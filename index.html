@@ -1,20 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Scam Checker</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Анти-Мошенник</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      background: #111827;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1f2937;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    h2 {
+      color: #38bdf8;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>🔍 Проверка ссылки</h1>
+<header>
+  🛡️ Как не попасться на мошенников
+</header>
 
-<input id="urlInput" placeholder="Вставь ссылку">
-<button onclick="checkURL()">Проверить</button>
+<div class="container">
 
-<p id="result"></p>
+  <div class="card">
+    <h2>📞 Звонок "из банка"</h2>
+    <p>Вам звонят и говорят, что с карты списывают деньги.</p>
+    <p><b>Что делать:</b> Положить трубку и позвонить в банк самому.</p>
+  </div>
 
-<script src="script.js"></script>
+  <div class="card">
+    <h2>🎁 Вы выиграли приз</h2>
+    <p>Говорят, что вы выиграли айфон или деньги.</p>
+    <p><b>Что делать:</b> Игнорировать. Бесплатного не бывает.</p>
+  </div>
+
+  <div class="card">
+    <h2>🔗 Поддельные сайты</h2>
+    <p>Сайт похож на настоящий, но адрес отличается.</p>
+    <p><b>Что делать:</b> Всегда проверяй URL.</p>
+  </div>
+
+  <div class="card">
+    <h2>⚠️ Главное правило</h2>
+    <p>Никогда не сообщай:</p>
+    <ul>
+      <li>код из SMS</li>
+      <li>данные карты</li>
+      <li>пароли</li>
+    </ul>
+  </div>
+
+</div>
 
 </body>
 </html>
