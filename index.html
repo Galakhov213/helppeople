@@ -3,43 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <title>Анти-Мошенник</title>
+
   <style>
     body {
       font-family: Arial;
       margin: 0;
-      background: #0f172a;
-      color: white;
+      background: #f0fdf4;
+      color: #064e3b;
     }
 
     header {
-      background: #111827;
+      background: #22c55e;
+      color: white;
       padding: 20px;
       text-align: center;
-      font-size: 24px;
+      font-size: 26px;
+      font-weight: bold;
     }
 
     .container {
-      padding: 20px;
       max-width: 900px;
       margin: auto;
+      padding: 20px;
     }
 
     .card {
-      background: #1f2937;
+      background: white;
+      border-radius: 12px;
       padding: 20px;
       margin: 15px 0;
-      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
 
     .card:hover {
-      transform: scale(1.02);
+      transform: translateY(-5px);
     }
 
     h2 {
-      color: #38bdf8;
+      color: #16a34a;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      border: none;
+      background: #22c55e;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #16a34a;
+    }
+
+    .details {
+      display: none;
+      margin-top: 10px;
+      background: #ecfdf5;
+      padding: 10px;
+      border-radius: 8px;
     }
   </style>
+
+  <script>
+    function toggleDetails(id) {
+      let el = document.getElementById(id);
+      el.style.display = (el.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
 </head>
 
 <body>
@@ -50,32 +84,69 @@
 
 <div class="container">
 
+  <!-- БАНК -->
   <div class="card">
     <h2>📞 Звонок "из банка"</h2>
-    <p>Вам звонят и говорят, что с карты списывают деньги.</p>
-    <p><b>Что делать:</b> Положить трубку и позвонить в банк самому.</p>
+    <p>Говорят, что с вашей карты списывают деньги и нужно срочно назвать код.</p>
+    <button onclick="toggleDetails('d1')">Подробнее</button>
+
+    <div id="d1" class="details">
+      <p><b>Как происходит:</b> мошенники пугают и давят, заставляя действовать быстро.</p>
+      <p><b>Никогда не делай:</b> не называй код из SMS и данные карты.</p>
+      <p><b>Что делать:</b> положить трубку и позвонить в банк самому.</p>
+    </div>
   </div>
 
+  <!-- ПРИЗ -->
   <div class="card">
     <h2>🎁 Вы выиграли приз</h2>
-    <p>Говорят, что вы выиграли айфон или деньги.</p>
-    <p><b>Что делать:</b> Игнорировать. Бесплатного не бывает.</p>
+    <p>Сообщают, что вы выиграли деньги или айфон.</p>
+    <button onclick="toggleDetails('d2')">Подробнее</button>
+
+    <div id="d2" class="details">
+      <p><b>Как происходит:</b> просят оплатить "доставку" или "комиссию".</p>
+      <p><b>Никогда не делай:</b> не отправляй деньги незнакомцам.</p>
+      <p><b>Что делать:</b> игнорировать такие сообщения.</p>
+    </div>
   </div>
 
+  <!-- САЙТ -->
   <div class="card">
-    <h2>🔗 Поддельные сайты</h2>
-    <p>Сайт похож на настоящий, но адрес отличается.</p>
-    <p><b>Что делать:</b> Всегда проверяй URL.</p>
+    <h2>🔗 Поддельный сайт</h2>
+    <p>Сайт выглядит как настоящий, но адрес отличается.</p>
+    <button onclick="toggleDetails('d3')">Подробнее</button>
+
+    <div id="d3" class="details">
+      <p><b>Как происходит:</b> создают копии популярных сайтов.</p>
+      <p><b>Никогда не делай:</b> не вводи данные карты на подозрительных сайтах.</p>
+      <p><b>Что делать:</b> проверяй адрес сайта (URL).</p>
+    </div>
   </div>
 
+  <!-- ГОСУСЛУГИ -->
   <div class="card">
-    <h2>⚠️ Главное правило</h2>
-    <p>Никогда не сообщай:</p>
-    <ul>
-      <li>код из SMS</li>
-      <li>данные карты</li>
-      <li>пароли</li>
-    </ul>
+    <h2>🏛️ "Госуслуги"</h2>
+    <p>Пишут или звонят якобы от Госуслуг и просят код.</p>
+    <button onclick="toggleDetails('d4')">Подробнее</button>
+
+    <div id="d4" class="details">
+      <p><b>Как происходит:</b> сообщают о взломе аккаунта и просят срочно подтвердить данные.</p>
+      <p><b>Никогда не делай:</b> не сообщай коды и пароль.</p>
+      <p><b>Что делать:</b> зайти в аккаунт только через официальный сайт.</p>
+    </div>
+  </div>
+
+  <!-- СПЕЦСЛУЖБЫ -->
+  <div class="card">
+    <h2>🚨 "Вы сотрудничали с врагом"</h2>
+    <p>Говорят, что вы якобы связаны с другой страной и требуют действия.</p>
+    <button onclick="toggleDetails('d5')">Подробнее</button>
+
+    <div id="d5" class="details">
+      <p><b>Как происходит:</b> запугивают уголовным делом и давят психологически.</p>
+      <p><b>Никогда не делай:</b> не выполняй требования (деньги, вред имуществу и т.д.).</p>
+      <p><b>Что делать:</b> сразу прекратить разговор и обратиться в полицию.</p>
+    </div>
   </div>
 
 </div>
