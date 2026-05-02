@@ -305,18 +305,161 @@
             padding: 10px 20px;
         }
 
+        /* --- НОВЫЕ СТИЛИ ДЛЯ ПАНИК-КНОПКИ --- */
+        .panic-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: #fff;
+            border: 3px solid #fff;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 2000;
+            box-shadow: 0 0 20px var(--accent-glow);
+            animation: panic-pulse 1s infinite alternate;
+            text-transform: uppercase;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        @keyframes panic-pulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 17, 0, 0.8); }
+            100% { transform: scale(1.05); box-shadow: 0 0 40px rgba(255, 17, 0, 1); }
+        }
+
+        /* --- МОДАЛЬНОЕ ОКНО ПАНИКИ --- */
+        .panic-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .panic-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .panic-content {
+            background: #1a0000;
+            border: 4px solid var(--accent);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+            box-shadow: 0 0 50px rgba(255, 17, 0, 0.6);
+            position: relative;
+        }
+
+        .panic-content h2 {
+            color: var(--accent);
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .panic-reason {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-style: italic;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .panic-content ol {
+            margin-left: 20px;
+            font-size: clamp(18px, 3vw, 22px);
+            color: #fff;
+            line-height: 1.5;
+        }
+
+        .panic-content li {
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .panic-content li b {
+            color: #ff5555;
+            font-size: 1.1em;
+        }
+
+        .close-panic {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--accent);
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin-top: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        
+        .close-panic:hover {
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
         @media(max-width: 768px) {
             .container { padding: 10px 20px; }
             .universal-rules { margin: 20px; padding: 20px; }
+            
+            .panic-btn {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: calc(100% - 40px);
+                font-size: 14px;
+                padding: 15px 10px;
+            }
+            .panic-content { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Полоса прокрутки сверху -->
+<!-- Индикатор прокрутки -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
+<!-- Анимированный фон -->
 <div class="bg-particles"></div>
+
+<!-- Паник-кнопка (Экстренная помощь) -->
+<button class="panic-btn" onclick="openPanicModal()">МЕНЯ ПРЯМО СЕЙЧАС ПЫТАЮТСЯ ОБМАНУТЬ — ЧТО ДЕЛАТЬ?</button>
+
+<!-- Модальное окно паники -->
+<div class="panic-modal" id="panicModal">
+    <div class="panic-content">
+        <h2>АЛГОРИТМ ДЕЙСТВИЙ</h2>
+        <p class="panic-reason">Зачем: В момент паники люди забывают всё, что читали. Тебе нужна короткая инструкция «1-2-3-4».</p>
+        <ol>
+            <li><b>Положи трубку.</b></li>
+            <li><b>Ничего не нажимай.</b></li>
+            <li><b>Позвони близким.</b></li>
+            <li><b>Позвони в банк/полицию</b>, либо просто убери телефон от себя подальше и какое-то время им не пользуйся.</li>
+        </ol>
+        <button class="close-panic" onclick="closePanicModal()">Всё понятно, закрыть</button>
+    </div>
+</div>
 
 <div class="marquee">
     <span>
@@ -448,6 +591,18 @@
             <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
         </div>
     </div>
+
+    <!-- 9 (НОВАЯ КАРТОЧКА: Помощь врагу) -->
+    <div class="card">
+        <div class="icon-circle">🦹‍♂️</div>
+        <h3>Помощь врагу / Госизмена</h3>
+        <p class="desc">Вас обвиняют в спонсировании террористов и заставляют перевести деньги или совершить диверсию.</p>
+        <button class="btn-more" onclick="toggle(this)">Как работает обман</button>
+        <div class="details">
+            Мошенники звонят под видом ФСБ или МВД, убеждая, что ваши деньги в опасности или вы стали фигурантом дела о госизмене. Под угрозами они заставляют перевести средства на "безопасные счета", взять кредиты или даже поджечь банкомат/здание, чтобы "помочь следствию". Настоящие правоохранители никогда не требуют таких действий по телефону!<br>
+            <span class="strict-rule">НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!</span>
+        </div>
+    </div>
 </div>
 
 <!-- СЕКЦИЯ АНОНИМНОСТЬ -->
@@ -477,18 +632,35 @@
 
 <footer>
     <p>Создано для защиты вашей семьи. Покажите этот сайт своим детям, родителям, бабушкам и дедушкам.</p>
+    <p style="margin-top: 15px; color: #888; font-size: 14px;">Создано студентом для персонального проекта (никогда не подписывайте свое фио там где многие смогут его узнать)</p>
     <div class="footer-warning">
         НИ В КОЕМ СЛУЧАЕ НЕ ГОВОРИТЕ КОДЫ И ПАРОЛИ!!
     </div>
 </footer>
 
 <script>
-    // Раскрытие карточек
+    // --- Логика Паник-кнопки ---
+    function openPanicModal() {
+        document.getElementById('panicModal').classList.add('active');
+    }
+
+    function closePanicModal() {
+        document.getElementById('panicModal').classList.remove('active');
+    }
+
+    // Закрытие модального окна при клике вне его области
+    document.getElementById('panicModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePanicModal();
+        }
+    });
+
+    // --- Раскрытие карточек ---
     function toggle(btn) {
         const details = btn.nextElementSibling;
         const isOpen = details.classList.contains('open');
         
-        // Закрываем все остальные открытые вкладки (по желанию, можно убрать)
+        // Закрываем все остальные открытые вкладки
         document.querySelectorAll('.details').forEach(el => el.classList.remove('open'));
         document.querySelectorAll('.btn-more').forEach(el => el.innerText = 'Как работает обман');
 
@@ -498,7 +670,7 @@
         }
     }
 
-    // Анимация появления карточек при прокрутке
+    // --- Анимация появления карточек при прокрутке ---
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -515,7 +687,7 @@
         observer.observe(el);
     });
 
-    // Индикатор прокрутки страницы
+    // --- Индикатор прокрутки страницы ---
     window.onscroll = function() {
         let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
